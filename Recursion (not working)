@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Mover : MonoBehaviour{
+
+    [SerializeField] float speed = 10f;
+    Vector3 endpos;
+    // Start is called before the first frame update
+    void Start()
+    {
+        currentpos = player.transform.position;
+        endpos = new Vector3(0f, 1f, 0f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (player.transform.position == currentpos.transform.position)
+        {
+            check = false;
+        }
+        // always use else in cases where only on condition can be
+        // true at the same time anyway
+        else if (player.transform.position == endpos.transform.position)
+        {
+            check = true;
+        }
+
+        player.transform.position = Vector3.MoveTowards(player.transform.position, check ? currentpos.transform.position : endpos.transform.position, Time.deltaTime * speed);
+
+
+
+    }
+}
