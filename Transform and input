@@ -4,21 +4,48 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    //[SerializeField]float xValue = 0.1f;
-    //[SerializeField]float yValue = 0.0f;
-    //[SerializeField]float zValue = 0.0f;
-    [SerializeField] float speed = 10f;
+    [SerializeField] float speed = 20f;
+    [SerializeField] float turnspeed = 40f;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        float xValue = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        Move();
+        Jump();
+        Roate();
+    }
+
+    void Move()
+    {
+        //Debug.Log(Time.deltaTime);
+        //float xValue = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         float zValue = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        transform.Translate(xValue, 0, zValue);
+
+        transform.Translate(0, 0, zValue);
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.Translate(0, 1, 0);
+        }
+    }
+
+    void Roate()
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Rotate(Vector3.up * turnspeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Rotate(-Vector3.up * turnspeed * Time.deltaTime);
+        }
     }
 }
