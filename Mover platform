@@ -1,0 +1,61 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Win : MonoBehaviour
+{
+    public float speed = 1.0f;
+    public Transform startPoint;
+    public Transform endPoint;
+    private bool Wins = false;
+
+    IEnumerator OnCollisionEnter(Collision collision)
+    {
+        Wins = true;
+        if (Wins == true)
+        {
+            Vector3 targetPosition = endPoint.position;
+            while (transform.position != targetPosition)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                yield return null;
+                print("up");
+            }
+        }
+        else
+        {
+            Vector3 targetPosition = startPoint.position;
+            while (transform.position != targetPosition)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                yield return null;
+                print("up");
+            }
+        }
+        
+        print("In contact");
+    }
+    IEnumerator OnCollisionExit(Collision collision)
+    {
+        Wins = false;
+        if (Wins == false)
+        {
+            Vector3 targetPosition = startPoint.position;
+            while (transform.position != targetPosition)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                yield return null;
+            }
+        }
+        else
+        {
+            Vector3 targetPosition = endPoint.position;
+            while (transform.position != targetPosition)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                yield return null;
+            }
+            print("No longer in contact");
+        }
+    }
+}
