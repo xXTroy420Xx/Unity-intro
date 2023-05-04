@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+
+public class Score : MonoBehaviour
+{
+    int currentScore = 10;
+    public TextMeshProUGUI ScoreText;
+
+
+    void Start()
+    {
+        ScoreText.text = ("Score: " + currentScore).ToString();
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "floor")
+        {
+            return;
+        }
+        else
+        {
+            currentScore--;
+            ScoreText.text = ("Score: " + currentScore).ToString();
+        }
+    }
+}
